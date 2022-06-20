@@ -32,6 +32,4 @@ workflows:
   build-test-analyze-workflow:
     jobs:
       - build
-      - test:
-          requires:
-            - build
+      - test 
