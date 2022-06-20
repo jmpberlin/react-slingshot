@@ -15,7 +15,23 @@ jobs:
           command: echo "failed step before"
           when: on_fail
 
+  test:
+    docker:
+      -image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i
+      - run: npm run test
+      - run:
+          command: echo "failed step before"
+          when: on_fail
 workflows:
   build-test-analyze-workflow:
     jobs:
       - build
+      - test:
+          requires:
+            - build
