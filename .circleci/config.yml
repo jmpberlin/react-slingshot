@@ -9,12 +9,12 @@ jobs:
       - run: npm install
       - save_cache:
           key: "npm-packages"
-          paths: -/src/node-modules
+          paths: 
+            - /src/node-modules
       - run: npm run lint
       - run:
           command: echo "failed step before"
           when: on_fail
-
   test:
     docker:
       -image: circleci/node:13.8.0
@@ -32,4 +32,6 @@ workflows:
   build-test-analyze-workflow:
     jobs:
       - build
-      - test 
+      - test:
+          requires:
+            - build
